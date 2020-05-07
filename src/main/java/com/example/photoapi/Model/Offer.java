@@ -12,12 +12,8 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
-    private String offerName;
-
+    @Column private String offerName;
     @Column private String details;
-
     @ManyToOne
     private User user;
 }

@@ -3,6 +3,7 @@ package com.example.photoapi.Controller;
 
 import com.example.photoapi.InterFace.UserInterface;
 import com.example.photoapi.Model.User;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/Userapi")
+@RequestMapping(value = "/UserApi")
 public class UserController {
 
     @Autowired private UserInterface userInter;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    @ApiOperation(value = "get all user", notes = "this api to get all user", response = User.class)
     public ResponseEntity< List<User>> getAllUsers(){
         try {
             List<User> users =  userInter.getAllUsers();
@@ -33,8 +35,9 @@ public class UserController {
     }
     /*************************************************************************/
 
-    @RequestMapping(value = "/getList/{userName}", method = RequestMethod.GET)
-    public ResponseEntity< List<User>> getListWithSameUsername(@PathVariable(value = "userName")String username){
+    @RequestMapping(value = "/getList/{username}", method = RequestMethod.GET)
+    @ApiOperation(value = "get all user same Username", notes = "this api to get all user with same username", response = User.class)
+    public ResponseEntity< List<User>> getListWithSameUsername(@PathVariable(value = "username")String username){
         try {
             List<User> users =  userInter.getListOfUserWithSameUserName(username);
             if(users.isEmpty()){
@@ -48,6 +51,7 @@ public class UserController {
     /*************************************************************************/
 
     @RequestMapping(value = "/getOneUser/{email}", method = RequestMethod.GET)
+    @ApiOperation(value = "get one user using email", notes = "this api to get one user", response = User.class)
     public ResponseEntity<User> getOneUser(@PathVariable(value = "email")String email){
         try {
             User user =  userInter.getUserByEmail(email);

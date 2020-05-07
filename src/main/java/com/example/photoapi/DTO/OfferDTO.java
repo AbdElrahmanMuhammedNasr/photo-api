@@ -9,6 +9,4 @@ public class OfferDTO {
     private String offerName;
     private String details;
     private String userName;
-
-
 }

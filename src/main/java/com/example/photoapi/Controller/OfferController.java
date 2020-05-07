@@ -32,7 +32,8 @@ public class OfferController<offerDTO> {
 //    @RequestMapping(value = "/getAllUserOffers/{email}", method = RequestMethod.GET)
 //    public ResponseEntity<List<Offer>> getAllUserOffers(@PathVariable(value = "email")String email){
 //        try {
-//            List<Offer> offers =  offerInterface.getAllUserOffers(userController.getOneUser(email).getBody());
+//            List<Offer> offers =  new ArrayList<>();
+//            offers =offerInterface.getAllUserOffers(userController.getOneUser(email).getBody());
 //            if(offers.isEmpty()){
 //                return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
 //            }
@@ -43,23 +44,22 @@ public class OfferController<offerDTO> {
 //    }
     /**********************************************************************************/
 
-     OfferDTO offerDTOclass = new OfferDTO();
      ModelMapper modelMapper = new ModelMapper();
-
-
 
     @RequestMapping(value = "/getAllUserOffers/{email}", method = RequestMethod.GET)
     @ApiOperation(value = "Find  offers ", notes = "this api used to find All user offers" ,response = OfferDTO.class)
     public ResponseEntity<List<OfferDTO>> getAllUserOffersSlice(@PathVariable(value = "email")String email){
         List<OfferDTO> offerDTOList = new ArrayList<>();
+
         try {
-            List<Offer> offers =  offerInterface.getAllUserOffers(userController.getOneUser(email).getBody());
+            List<Offer> offers = offerInterface.getAllUserOffers(userController.getOneUser(email).getBody());
             if(offers.isEmpty()){
                 return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                for (Offer offer:offers) {
-                    modelMapper.map(offer, offerDTOclass);
-                    offerDTOList.add(offerDTOclass);
+                for (Offer offer: offers) {
+                    OfferDTO offerDTOclass = new OfferDTO();
+                     modelMapper.map(offer, offerDTOclass);
+                     offerDTOList.add(0,offerDTOclass);
                 }
             }
             return new ResponseEntity(offerDTOList, HttpStatus.OK);
@@ -67,4 +67,6 @@ public class OfferController<offerDTO> {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+
 }

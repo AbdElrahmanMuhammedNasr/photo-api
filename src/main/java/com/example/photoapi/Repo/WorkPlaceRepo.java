@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface WorkPlaceRepo extends JpaRepository<WorkPalces,Long> {
     List<WorkPalces> findByUser(User user);
+    List<WorkPalces> findAllByCity(String city);
 }

@@ -23,13 +23,29 @@ public class WorkController {
 
     @Autowired private WorkPlaceInterface workPlaceInterface;
     @Autowired private UserController userController;
-
-    private WorkPalcesDTO workPalcesDTOClass = new WorkPalcesDTO();
     private ModelMapper modelMapper = new ModelMapper();
+
+//    @RequestMapping(value = "/getAllUserWork/{email}", method = RequestMethod.GET)
+//    public ResponseEntity<List<WorkPalces>> getAllUserWorkplace(@PathVariable(value = "email") String email) {
+//        try {
+//            List<WorkPalces> workPalces =  workPlaceInterface.getAllUserWorkPalce(userController.getOneUser(email).getBody());
+//            if(workPalces.isEmpty()){
+//                return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }
+//
+//            return new ResponseEntity<>(workPalces, HttpStatus.OK);
+//        }catch (Exception x){
+//            return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+//        }
+//
+//
+//
+//    }
+    /**************************************************************************************************************/
 
 
     @RequestMapping(value = "/getAllUserWork/{email}", method = RequestMethod.GET)
-    public ResponseEntity<List<WorkPalcesDTO>> getAllWorkplace(@PathVariable(value = "email") String email) {
+    public ResponseEntity<List<WorkPalcesDTO>> getAllUserWorkplace(@PathVariable(value = "email") String email) {
          List<WorkPalcesDTO> workPalcesDTOList = new ArrayList<>();
         try {
             List<WorkPalces> workPalces =  workPlaceInterface.getAllUserWorkPalce(userController.getOneUser(email).getBody());
@@ -37,6 +53,29 @@ public class WorkController {
                 return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
             }else {
                 for (WorkPalces work:workPalces) {
+                    WorkPalcesDTO workPalcesDTOClass = new WorkPalcesDTO();
+                    modelMapper.map(work, workPalcesDTOClass);
+                    workPalcesDTOList.add(workPalcesDTOClass);
+                }
+            }
+            return new ResponseEntity<>(workPalcesDTOList, HttpStatus.OK);
+        }catch (Exception x){
+            return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+        }
+
+    }
+    /**************************************************************************************************************/
+
+    @RequestMapping(value = "/getAllWork/{city}", method = RequestMethod.GET)
+    public ResponseEntity<List<WorkPalcesDTO>> getAllWorkplace(@PathVariable(value = "city") String city) {
+        List<WorkPalcesDTO> workPalcesDTOList = new ArrayList<>();
+        try {
+            List<WorkPalces> workPalces =  workPlaceInterface.getAllWorkPlace(city);
+            if(workPalces.isEmpty()){
+                return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }else {
+                for (WorkPalces work:workPalces) {
+                    WorkPalcesDTO workPalcesDTOClass = new WorkPalcesDTO();
                     modelMapper.map(work, workPalcesDTOClass);
                     workPalcesDTOList.add(workPalcesDTOClass);
                 }
@@ -49,4 +88,5 @@ public class WorkController {
 
 
     }
+    /**************************************************************************************************************/
 }

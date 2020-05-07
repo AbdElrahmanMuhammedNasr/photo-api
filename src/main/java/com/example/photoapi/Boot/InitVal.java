@@ -1,8 +1,10 @@
 package com.example.photoapi.Boot;
 
+import com.example.photoapi.Model.FreeTime;
 import com.example.photoapi.Model.Offer;
 import com.example.photoapi.Model.User;
 import com.example.photoapi.Model.WorkPalces;
+import com.example.photoapi.Repo.FreeTimeRepo;
 import com.example.photoapi.Repo.OfferRepo;
 import com.example.photoapi.Repo.UserRepo;
 import com.example.photoapi.Repo.WorkPlaceRepo;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class InitVal implements CommandLineRunner {
     @Autowired private UserRepo userRepo;
     @Autowired private WorkPlaceRepo workPlaceRepo;
     @Autowired private OfferRepo offerRepo;
+    @Autowired private FreeTimeRepo freeTimeRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -29,6 +34,7 @@ public class InitVal implements CommandLineRunner {
 
         List<WorkPalces> list = new ArrayList<>();
         List<Offer> list1 = new ArrayList<>();
+        List<FreeTime> list2 = new ArrayList<>();
 
 
         User user = new User();
@@ -40,6 +46,7 @@ public class InitVal implements CommandLineRunner {
         user.setCity("tanta");
         user.setWorkPalces(list);
         user.setOffers(list1);
+        user.setFreeTimes(list2);
 
         userRepo.save(user);
 
@@ -88,6 +95,25 @@ public class InitVal implements CommandLineRunner {
         list1.add(offer);
         list1.add(offer2);
         list1.add(offer3);
+
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+
+        FreeTime freeTime = new FreeTime();
+        freeTime.setDay(sqlDate);
+        freeTime.setFromTime("5 AM");
+        freeTime.setToTime("6 AM");
+        freeTime.setUser(user);
+        freeTimeRepo.save(freeTime);
+
+        FreeTime freeTime1 = new FreeTime();
+        freeTime1.setDay(sqlDate);
+        freeTime1.setFromTime("8 AM");
+        freeTime1.setToTime("10 AM");
+        freeTime1.setUser(user);
+        freeTimeRepo.save(freeTime1);
+
+        list2.add(freeTime);
+        list2.add(freeTime1);
 
 
     }

@@ -34,5 +34,9 @@ public class User {
     @JsonIgnore
     @Column private List<Offer> offers;
 
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @JsonIgnore
+    @Column private List<FreeTime> freeTimes;
+
 
 }

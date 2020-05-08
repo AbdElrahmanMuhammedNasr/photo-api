@@ -1,7 +1,9 @@
 package com.example.photoapi.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,15 +18,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column @Email private String email;
+    @Column
+    @Email
+    private String email;
 
-    @Column private String userName;
+    @Column
+    private String userName;
 
-    @Column private String job;
+    @Column
+    private String job;
 
-    @Column private int price;
+    @Column
+    private int price;
 
-    @Column private String city;
+    @Column
+    @Length(min = 11 , max = 11)
+    private String phoneNumber;
+
+    @Column
+    private String city;
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     @JsonIgnore

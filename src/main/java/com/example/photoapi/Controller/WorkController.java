@@ -1,9 +1,7 @@
 package com.example.photoapi.Controller;
 
-import com.example.photoapi.DTO.OfferDTO;
 import com.example.photoapi.DTO.WorkPalcesDTO;
 import com.example.photoapi.InterFace.WorkPlaceInterface;
-import com.example.photoapi.Model.Offer;
 import com.example.photoapi.Model.WorkPalces;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

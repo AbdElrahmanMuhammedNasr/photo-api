@@ -3,6 +3,7 @@ package com.example.photoapi.Model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -14,6 +15,7 @@ public class Offer {
     private Long id;
     @Column private String offerName;
     @Column private String details;
+    @Column private Date endOffer;
     @ManyToOne
     private User user;
 }

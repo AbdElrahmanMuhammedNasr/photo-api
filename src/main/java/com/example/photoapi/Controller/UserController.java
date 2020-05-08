@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class UserController {
             if(users.isEmpty()){
                 return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(users, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.FOUND);
         }catch (Exception x){
             return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }
@@ -43,7 +40,7 @@ public class UserController {
             if(users.isEmpty()){
                 return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(users, HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.FOUND);
         }catch (Exception x){
             return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }
@@ -58,9 +55,56 @@ public class UserController {
             if(user ==null){
                 return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.FOUND);
         }catch (Exception x){
             return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }
     }
+
+    /*********************************************************Post*******************************************************************/
+    @RequestMapping(value = "/addNewUser", method = RequestMethod.POST)
+    @ApiOperation(value = "add new User", notes = "this  api  to create new user using some data")
+    public ResponseEntity<Void> addNewUser(@RequestBody User user){
+        try {
+            userInter.addNewUser(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception x){
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+
+    }
+
+    /*********************************************************Update*******************************************************************/
+    @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+    @ApiOperation(value = " update User", notes = "this  api  to update user using ID")
+    public ResponseEntity<Void> updateUser(@RequestBody User user){
+        try {
+            userInter.updateUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception x){
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+
+    }
+
+    /*********************************************************delete*******************************************************************/
+    @RequestMapping(value = "/deleteUser/{email}", method = RequestMethod.DELETE)
+    @ApiOperation(value = " delete User", notes = "this  api  to delete user using Email")
+    public ResponseEntity<Void> deleteUser(@PathVariable(value = "email") String email){
+        try {
+            userInter.deleteUserUsingEmail(email);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception x){
+            System.out.println(x.getMessage());
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+
+    }
 }
+
+
+
+
+
+
+

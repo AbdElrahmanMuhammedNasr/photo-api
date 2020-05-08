@@ -10,11 +10,11 @@ import com.example.photoapi.Repo.UserRepo;
 import com.example.photoapi.Repo.WorkPlaceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -25,12 +25,9 @@ public class InitVal implements CommandLineRunner {
     @Autowired private OfferRepo offerRepo;
     @Autowired private FreeTimeRepo freeTimeRepo;
 
+
     @Override
     public void run(String... args) throws Exception {
-
-
-
-
 
         List<WorkPalces> list = new ArrayList<>();
         List<Offer> list1 = new ArrayList<>();
@@ -44,6 +41,7 @@ public class InitVal implements CommandLineRunner {
         user.setJob("ph");
         user.setPrice(122);
         user.setCity("tanta");
+        user.setPhoneNumber("01205338791");
         user.setWorkPalces(list);
         user.setOffers(list1);
         user.setFreeTimes(list2);
@@ -73,22 +71,27 @@ public class InitVal implements CommandLineRunner {
         list.add(workPalces2);
         list.add(workPalces1);
 
+        Calendar c = Calendar.getInstance();
+        c.set(2020,10,10);
 
         Offer offer = new Offer();
         offer.setOfferName("discount");
         offer.setDetails("i will dis about 10% ");
+        offer.setEndOffer( c.getTime() );
         offer.setUser(user);
         offerRepo.save(offer);
 
         Offer offer2 = new Offer();
         offer2.setOfferName("discount");
         offer2.setDetails("i will dis about 10% ");
+        offer2.setEndOffer( c.getTime());
         offer2.setUser(user);
         offerRepo.save(offer2);
 
         Offer offer3 = new Offer();
         offer3.setOfferName("discount");
         offer3.setDetails("i will dis about 10% ");
+        offer3.setEndOffer( c.getTime());
         offer3.setUser(user);
         offerRepo.save(offer3);
 

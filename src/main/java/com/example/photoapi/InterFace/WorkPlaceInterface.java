@@ -8,4 +8,8 @@ import java.util.List;
 public interface WorkPlaceInterface {
     List<WorkPalces> getAllUserWorkPalce(User user);
     List<WorkPalces> getAllWorkPlace(String city);
+    WorkPalces getOneWorkPlace(Long id);
+    void addNewWorkPlace(WorkPalces workPalces);
+    void updateWorkPlace(WorkPalces workPalces);
+    void deleteWorkPlace(Long id);
 }

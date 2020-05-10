@@ -17,4 +17,24 @@ public class FreeTimeImp implements FreeTimeInterface {
     public List<FreeTime> getAllFreeTime(Date date) {
         return freeTimeRepo.findAllByDay(date);
     }
+
+    @Override
+    public FreeTime getOneFreeTime(Long id) {
+        return freeTimeRepo.findById(id).get();
+    }
+
+    @Override
+    public void savenewFreeTime(FreeTime freeTime) {
+        freeTimeRepo.save(freeTime);
+    }
+
+    @Override
+    public void updateFreeTime(FreeTime freeTime) {
+        freeTimeRepo.save(freeTime);
+    }
+
+    @Override
+    public void deleteFreeTime(FreeTime freeTime) {
+        freeTimeRepo.delete(freeTime);
+    }
 }

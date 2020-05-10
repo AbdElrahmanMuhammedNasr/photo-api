@@ -23,4 +23,26 @@ public class WorkPlaceImp implements WorkPlaceInterface {
     public List<WorkPalces> getAllWorkPlace(String city) {
         return workPlaceRepo.findAllByCity(city);
     }
+
+    @Override
+    public WorkPalces getOneWorkPlace(Long id) {
+        return workPlaceRepo.findById(id).get();
+    }
+
+    @Override
+    public void addNewWorkPlace(WorkPalces workPalces) {
+        workPlaceRepo.save(workPalces);
+    }
+
+    @Override
+    public void updateWorkPlace(WorkPalces workPalces) {
+        workPlaceRepo.save(workPalces);
+    }
+
+    @Override
+    public void deleteWorkPlace(Long id) {
+        workPlaceRepo.deleteById(id);
+    }
+
+
 }

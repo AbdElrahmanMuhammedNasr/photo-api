@@ -1,13 +1,7 @@
 package com.example.photoapi.Boot;
 
-import com.example.photoapi.Model.FreeTime;
-import com.example.photoapi.Model.Offer;
-import com.example.photoapi.Model.User;
-import com.example.photoapi.Model.WorkPalces;
-import com.example.photoapi.Repo.FreeTimeRepo;
-import com.example.photoapi.Repo.OfferRepo;
-import com.example.photoapi.Repo.UserRepo;
-import com.example.photoapi.Repo.WorkPlaceRepo;
+import com.example.photoapi.Model.*;
+import com.example.photoapi.Repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +18,8 @@ public class InitVal implements CommandLineRunner {
     @Autowired private WorkPlaceRepo workPlaceRepo;
     @Autowired private OfferRepo offerRepo;
     @Autowired private FreeTimeRepo freeTimeRepo;
+    @Autowired private ReservedRepo reservedRepo;
+    @Autowired private CustomerRepo customerRepo;
 
 
     @Override
@@ -47,7 +43,6 @@ public class InitVal implements CommandLineRunner {
         user.setFreeTimes(list2);
 
         userRepo.save(user);
-
 
 
         WorkPalces workPalces = new WorkPalces();
@@ -105,6 +100,7 @@ public class InitVal implements CommandLineRunner {
         freeTime.setDay(sqlDate);
         freeTime.setFromTime("5 AM");
         freeTime.setToTime("6 AM");
+        freeTime.setIsReserved('0');
         freeTime.setUser(user);
         freeTimeRepo.save(freeTime);
 
@@ -112,11 +108,36 @@ public class InitVal implements CommandLineRunner {
         freeTime1.setDay(sqlDate);
         freeTime1.setFromTime("8 AM");
         freeTime1.setToTime("10 AM");
+        freeTime1.setIsReserved('1');
         freeTime1.setUser(user);
         freeTimeRepo.save(freeTime1);
 
+        FreeTime freeTime2 = new FreeTime();
+        freeTime2.setDay(sqlDate);
+        freeTime2.setFromTime("5 AM");
+        freeTime2.setToTime("6 AM");
+        freeTime2.setIsReserved('1');
+        freeTime2.setUser(user);
+        freeTimeRepo.save(freeTime2);
+
         list2.add(freeTime);
         list2.add(freeTime1);
+
+        Customer customer = new Customer();
+        customer.setUserName("ALi C");
+        customer.setEmail("www.ali@ali.com");
+        customer.setJob("cu");
+        customerRepo.save(customer);
+
+        Reserved reserved = new Reserved();
+        reserved.setFreeTime(freeTime1);
+        reserved.setCustomer(customer);
+        reservedRepo.save(reserved);
+
+        Reserved reserved2 = new Reserved();
+        reserved2.setFreeTime(freeTime2);
+        reserved2.setCustomer(customer);
+        reservedRepo.save(reserved2);
 
 
     }

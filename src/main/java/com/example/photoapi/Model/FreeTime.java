@@ -14,9 +14,15 @@ public class FreeTime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column private Date day;
-    @Column private String fromTime;
-    @Column private String toTime;
+    @Column
+    private Date day;
+    @Column
+    private String fromTime;
+    @Column
+    private String toTime;
+    @Column
+    private char isReserved ;
+
     @ManyToOne
     private User user;
 }

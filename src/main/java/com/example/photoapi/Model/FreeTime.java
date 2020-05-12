@@ -23,6 +23,9 @@ public class FreeTime {
     @Column
     private char isReserved ;
 
+//    @OneToOne
+//    private Reserved reserved;
+
     @ManyToOne
     private User user;
 }

@@ -9,5 +9,6 @@ public class FreeTimeDTO {
     private Date day;
     private String fromTime;
     private String toTime;
+    private char isReserved ;
     private String userName;
 }

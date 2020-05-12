@@ -4,7 +4,6 @@ import com.example.photoapi.Model.*;
 import com.example.photoapi.Repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

@@ -1,6 +1,8 @@
 package com.example.photoapi.Model;
 
 import lombok.Data;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
@@ -10,7 +12,7 @@ import javax.persistence.*;
 public class Reserved {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
